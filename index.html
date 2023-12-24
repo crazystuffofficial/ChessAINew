@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stockfish WebAssembly Example</title>
+</head>
+<body>
+    <script>
+        let stockfish;
+
+        fetch('stockfish.wasm')
+            .then(response => response.arrayBuffer())
+            .then(buffer => WebAssembly.instantiate(buffer, {}))
+            .then(result => {
+                stockfish = result.instance.exports;
+                // Now you can use Stockfish functions from the 'stockfish' object
+                console.log('Stockfish version:', stockfish.getVersion());
+            })
+            .catch(error => console.error(error));
+    </script>
+</body>
+</html>
